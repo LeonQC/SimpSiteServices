@@ -23,7 +23,7 @@ public class UrlControllerTest {
     @Test
     public void testShortenUrl() throws Exception{
         String longUrl = "http://example.com/fghjygtgfcvbjku789";
-        MvcResult mvcResult = this.mockMvc.perform(post("/shorten")
+        MvcResult mvcResult = this.mockMvc.perform(post("/encode")
                         .content(longUrl)
                         .contentType(MediaType.TEXT_PLAIN))
                 .andDo(print())

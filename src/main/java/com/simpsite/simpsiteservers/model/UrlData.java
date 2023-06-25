@@ -7,8 +7,6 @@ import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
-@Getter
-@Setter
 @Table(name = "urls")
 @Data
 public class UrlData implements Serializable {

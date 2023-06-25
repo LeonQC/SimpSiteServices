@@ -1,7 +1,7 @@
 package com.simpsite.simpsiteservers.controller;
 
+import com.simpsite.simpsiteservers.Codec.Codec;
 import com.simpsite.simpsiteservers.service.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,6 @@ public class UrlController {
         this.urlService = urlService;
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/encode")
     public ResponseEntity<String> encode(@RequestBody String longUrl)  {
 //        String shortUrl = codecImpl1.encode(longUrl);
@@ -37,9 +36,10 @@ public class UrlController {
     @GetMapping("/decode")
     public ResponseEntity<String> decode(@RequestParam("shortUrl") String shortUrl) {
 
-        String longUrl = base62Codec.encode(shortUrl);
+        String longUrl = urlService.getOriginalUrl(shortUrl);
 
         return ResponseEntity.ok(longUrl);
     }
+
 }
 

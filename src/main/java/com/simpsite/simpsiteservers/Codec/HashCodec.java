@@ -1,4 +1,4 @@
-package com.simpsite.simpsiteservers.service;
+package com.simpsite.simpsiteservers.Codec;
 
 import org.springframework.stereotype.Service;
 

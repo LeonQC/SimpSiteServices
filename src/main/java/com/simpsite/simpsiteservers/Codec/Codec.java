@@ -1,4 +1,4 @@
-package com.simpsite.simpsiteservers.service;
+package com.simpsite.simpsiteservers.Codec;
 
 public interface Codec {
     String encode(String longUrl);
