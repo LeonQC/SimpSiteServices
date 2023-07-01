@@ -19,7 +19,10 @@ public class UrlService {
     private final UrlRepository urlRepository;
 
     private final RedisTemplate<String,UrlData> redisTemplate;
+
     private final CodecFactory codecFactory;
+
+    private final RedisDBService redisDBService;
 
 
     @Cacheable(value = "shortUrlCache", key = "#longUrl",unless = "#result == null")
@@ -36,8 +39,9 @@ public class UrlService {
 
         urlData.setLongUrl(longUrl);
         urlData.setShortUrl(newShortUrl);
-
-        redisTemplate.opsForValue().set(newShortUrl,urlData);
+        urlData.setId(getNextSequenceId());
+        String redisKey = urlData.getId().toString();
+        redisTemplate.opsForValue().set(redisKey,urlData);
         urlRepository.save(urlData);
         return newShortUrl;
     }
@@ -68,6 +72,8 @@ public class UrlService {
         }
     }
 
-
+    public long getNextSequenceId() {
+        return redisDBService.getNextSequenceIdByAtomic();
+    }
 
 }

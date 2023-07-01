@@ -29,6 +29,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.security:spring-security-oauth2-jose'
     implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+
     developmentOnly 'org.springframework.boot:spring-boot-devtools:3.0.6'
     runtimeOnly 'org.springframework.boot:spring-boot-configuration-processor:3.0.4'
     runtimeOnly 'com.h2database:h2:2.1.214'
@@ -38,6 +39,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 
 
 }
