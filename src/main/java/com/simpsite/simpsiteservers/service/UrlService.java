@@ -25,10 +25,14 @@ public class UrlService {
     @Cacheable(value = "shortUrlCache", key = "#longUrl",unless = "#result == null")
     public String shortenUrl(String longUrl) {
 //        Codec codec = selectCodec(longUrl);
-        Codec codec = codecFactory.createCodec(selectCodec(longUrl));
-        String newShortUrl = codec.encode(longUrl) ;
-
         UrlData urlData = new UrlData();
+        Optional<UrlData> existingUrlData = urlRepository.findByLongUrl(longUrl);
+        if(existingUrlData.isPresent()){
+            return existingUrlData.get().getLongUrl();
+        }
+        Codec codec = codecFactory.createCodec(selectCodec(longUrl));
+
+        String newShortUrl = codec.encode(longUrl) ;
 
         urlData.setLongUrl(longUrl);
         urlData.setShortUrl(newShortUrl);

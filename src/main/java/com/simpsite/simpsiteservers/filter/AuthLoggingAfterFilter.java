@@ -7,9 +7,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class AuthoritiesLoggingAfterFilter implements Filter {
+public class AuthLoggingAfterFilter implements Filter{
+    private final Logger LOG = Logger.getLogger(AuthLoggingAfterFilter.class.getName());
 
-    private final Logger LOG = Logger.getLogger(AuthoritiesLoggingAfterFilter.class.getName());
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -18,4 +18,5 @@ public class AuthoritiesLoggingAfterFilter implements Filter {
         }
         chain.doFilter(request,response);
     }
+
 }

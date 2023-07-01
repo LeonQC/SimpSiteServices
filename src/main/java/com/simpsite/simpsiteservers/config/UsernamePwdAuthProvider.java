@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class UsernamePwdAuthenticationProvider implements AuthenticationProvider {
+public class UsernamePwdAuthProvider implements AuthenticationProvider {
 
     @Autowired
     private UserRepository userRepository;
@@ -30,7 +30,9 @@ public class UsernamePwdAuthenticationProvider implements AuthenticationProvider
         List<Customer> customer = userRepository.findByEmail(username);
         if (customer.size() > 0) {
             if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
+                System.out.println("successful");
                 return new UsernamePasswordAuthenticationToken(username, pwd, Collections.emptyList());
+
             } else {
                 throw new BadCredentialsException("Invalid password!");
             }
