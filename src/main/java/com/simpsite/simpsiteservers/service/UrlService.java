@@ -1,7 +1,6 @@
 package com.simpsite.simpsiteservers.service;
 
 import com.simpsite.simpsiteservers.Codec.Codec;
-import com.simpsite.simpsiteservers.model.Customer;
 import com.simpsite.simpsiteservers.model.UrlData;
 import com.simpsite.simpsiteservers.repository.UrlRepository;
 
