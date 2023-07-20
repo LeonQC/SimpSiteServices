@@ -19,4 +19,8 @@ public class UrlData implements Serializable {
     @Column(nullable = false)
     private String longUrl;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "userid", nullable = false)
+    private Customer user;
+
 }

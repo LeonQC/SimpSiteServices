@@ -1,6 +1,8 @@
 package com.simpsite.simpsiteservers.controller;
 
 import com.simpsite.simpsiteservers.model.Customer;
+import com.simpsite.simpsiteservers.model.UrlData;
+import com.simpsite.simpsiteservers.repository.UrlRepository;
 import com.simpsite.simpsiteservers.repository.UserRepository;
 import com.simpsite.simpsiteservers.service.OAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,17 +12,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +25,7 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private final UserRepository userRepository;
+    private final UrlRepository urlRepository;
     private final PasswordEncoder passwordEncoder;
     private final OAuth2UserService oAuth2UserService;
     @PostMapping("/register")
@@ -46,7 +44,6 @@ public class LoginController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An exception occurred due to " + e.getMessage());
         }
-
     }
 
     @RequestMapping("/user")
@@ -109,8 +106,15 @@ public class LoginController {
         return userRepository.findByEmail(email).get(0);
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "test";
+    @GetMapping("/test/{id}")
+    public ResponseEntity<List<UrlData>> getUserUrls(@PathVariable("id") long id) {
+        Optional<Customer> optionalCustomer = userRepository.findById(id);
+        if(!optionalCustomer.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        List<UrlData> urls = urlRepository.findByUserId((int)id);
+        return ResponseEntity.ok(urls);
+
     }
 }

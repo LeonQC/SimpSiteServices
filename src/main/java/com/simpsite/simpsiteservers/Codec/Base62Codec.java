@@ -1,6 +1,5 @@
 package com.simpsite.simpsiteservers.Codec;
 
-import com.simpsite.simpsiteservers.Codec.Codec;
 import com.simpsite.simpsiteservers.service.Counter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,15 +49,5 @@ public class Base62Codec implements Codec {
     private char toBase62Char(int digit) {
         return CHARS.charAt(digit);
     }
-//        if (digit >= 0 && digit <= 9) {
-//            return (char) (digit + '0');
-//        } else if (digit >= 10 && digit <= 35) {
-//            return (char) (digit - 10 + 'a');
-//        } else if (digit >= 36 && digit <= 61) {
-//            return (char) (digit - 36 + 'A');
-//        } else {
-//            throw new IllegalArgumentException("Invalid digit: " + digit);
-//        }
-//    }
 
 }

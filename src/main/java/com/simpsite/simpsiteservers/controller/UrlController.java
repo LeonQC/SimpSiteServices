@@ -33,6 +33,12 @@ public class UrlController {
         return ResponseEntity.ok(shortUrl);
     }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteUrl(@PathVariable String shortUrl){
+        urlService.deleteUrl(shortUrl);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/decode")
     public ResponseEntity<String> decode(@RequestParam("shortUrl") String shortUrl) {
 

@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
@@ -35,5 +36,7 @@ public class Customer {
         createDt = LocalDate.now();
     }
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UrlData> urls;
 }
 

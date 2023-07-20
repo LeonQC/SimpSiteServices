@@ -1,6 +1,7 @@
 package com.simpsite.simpsiteservers.service;
 
 import com.simpsite.simpsiteservers.Codec.Codec;
+import com.simpsite.simpsiteservers.model.Customer;
 import com.simpsite.simpsiteservers.model.UrlData;
 import com.simpsite.simpsiteservers.repository.UrlRepository;
 
@@ -74,6 +75,16 @@ public class UrlService {
 
     public long getNextSequenceId() {
         return redisDBService.getNextSequenceIdByAtomic();
+    }
+
+    public void deleteUrl(String shortUrl){
+        Optional<UrlData> optionalUrl = urlRepository.findByShortUrl(shortUrl);
+        if(optionalUrl.isPresent()){
+            UrlData url = optionalUrl.get();
+            urlRepository.delete(url);
+        } else {
+            throw new NoSuchElementException("No Url Found");
+        }
     }
 
 }
