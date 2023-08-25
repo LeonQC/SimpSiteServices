@@ -1,6 +1,7 @@
 package com.simpsite.simpsiteservers.service;
 
 import com.simpsite.simpsiteservers.Codec.Codec;
+import com.simpsite.simpsiteservers.model.Customer;
 import com.simpsite.simpsiteservers.model.UrlData;
 import com.simpsite.simpsiteservers.repository.UrlRepository;
 
@@ -29,6 +30,8 @@ public class UrlService {
     public String shortenUrl(String longUrl) {
 //        Codec codec = selectCodec(longUrl);
         UrlData urlData = new UrlData();
+        Customer customer = new Customer();
+        customer.setId((long)3);
         Optional<UrlData> existingUrlData = urlRepository.findByLongUrl(longUrl);
         if(existingUrlData.isPresent()){
             return existingUrlData.get().getLongUrl();
@@ -40,8 +43,9 @@ public class UrlService {
         urlData.setLongUrl(longUrl);
         urlData.setShortUrl(newShortUrl);
         urlData.setId(getNextSequenceId());
+        urlData.setUser(customer);
         String redisKey = urlData.getId().toString();
-        redisTemplate.opsForValue().set(redisKey,urlData);
+//        redisTemplate.opsForValue().set(redisKey,urlData);
         urlRepository.save(urlData);
         return newShortUrl;
     }

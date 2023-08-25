@@ -11,12 +11,12 @@ import java.util.Collection;
 import java.util.Map;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
-    private int id;
+    private long id;
     private String email;
     private String password;
     private Map<String, Object> attributes;
 
-    public UserPrincipal(int id, String email, String password) {
+    public UserPrincipal(long id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -26,7 +26,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return new UserPrincipal(
                 user.getId(),
                 user.getEmail(),
-                user.getPwd()
+                user.getPassword()
 
         );
     }
@@ -37,7 +37,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         return userPrincipal;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

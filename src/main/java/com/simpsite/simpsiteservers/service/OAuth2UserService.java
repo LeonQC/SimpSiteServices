@@ -69,15 +69,15 @@ private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2
         if(customer.isEmpty()){
             throw new UsernameNotFoundException("Invalid username or password");
         }
-        return new User(customer.get(0).getEmail(),customer.get(0).getPwd(), Collections.emptyList());
+        return new User(customer.get(0).getEmail(),customer.get(0).getPassword(), Collections.emptyList());
     }
 
     private Customer registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
         Customer customer = new Customer();
 
-        String hashPwd = passwordEncoder.encode(customer.getPwd());
+        String hashPwd = passwordEncoder.encode(customer.getPassword());
         String username = oAuth2User.getAttribute("login");
-        customer.setPwd(hashPwd);
+        customer.setPassword(hashPwd);
 
         return userRepository.save(customer);
     }

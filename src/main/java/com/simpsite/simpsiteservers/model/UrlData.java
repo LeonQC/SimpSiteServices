@@ -10,6 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Table(name = "urls")
 @Data
+@ToString
 public class UrlData implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -24,5 +25,7 @@ public class UrlData implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "userid", nullable = false)
     private Customer user;
+
+
 
 }

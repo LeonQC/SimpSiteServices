@@ -43,7 +43,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 Customer customer =new Customer();
                 customer.setEmail(email);
                 customer.setUsername(username);
-                customer.setPwd(passwordEncoder.encode(email));
+                customer.setPassword(passwordEncoder.encode(email));
                 userRepository.save(customer);
             }
             String userCookieValue = Base64.getEncoder().encodeToString(oAuth2User.toString().getBytes());

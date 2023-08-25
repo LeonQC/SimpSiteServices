@@ -3,8 +3,10 @@ package com.simpsite.simpsiteservers.Utils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseCookie;
 import org.springframework.util.SerializationUtils;
 
+import java.net.ResponseCache;
 import java.util.Base64;
 import java.util.Optional;
 
@@ -57,4 +59,12 @@ public class CookieUtils {
     }
 
 
+    public static String createCookieString(String name,String value,Integer duration) {
+        return ResponseCookie.from(name,value)
+                .maxAge(duration)
+                .httpOnly(true)
+                .path("/")
+                .build()
+                .toString();
+    }
 }

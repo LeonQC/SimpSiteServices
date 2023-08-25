@@ -11,6 +11,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import java.io.Serializable;
 @Configuration
 public class RedisLimitConfig {
+
     @Bean(name = "limitRedisTemplate")
     public RedisTemplate<String, Serializable> limitRedisTemplate(
             @Qualifier("redisConnectionFactory") LettuceConnectionFactory lettuceConnectionFactory) {
